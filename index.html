@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Yeny ❤️</title>
+
+<style>
+body {
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  color:white;
+}
+
+.card {
+  background: rgba(255,255,255,0.15);
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  backdrop-filter: blur(12px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+img {
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid white;
+  box-shadow:0 0 20px rgba(255,255,255,0.7);
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:scale(0.8)}
+  to {opacity:1; transform:scale(1)}
+}
+
+h1 {font-size:20px; margin-top:10px;}
+
+p {min-height:40px; font-size:14px;}
+
+button {
+  margin:5px;
+  padding:8px 14px;
+  border:none;
+  border-radius:10px;
+  background:#ff6b81;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover {transform:scale(1.1); background:#ff4757;}
+
+.heartRain {
+  position:fixed;
+  top:-10px;
+  font-size:20px;
+  animation: fall linear;
+}
+
+@keyframes fall {
+  to {transform:translateY(100vh); opacity:0}
+}
+
+.game {display:none;}
+
+.heartBox {
+  position:fixed;
+  font-size:35px;
+  cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<div class="card" id="main">
+
+<img src="https://i.imgur.com/0abZsJ7.jpg">
+
+<h1>🎉 Happy Birthday Yeny Lestari ❤️</h1>
+<p id="text">Klik tombolnya yaa 😆</p>
+
+<button onclick="startAll('Aku sayang kamu banget ❤️')">❤️ Love</button>
+<button onclick="changeText('Aku kangen kamu 😭')">🥺 Kangen</button>
+<button onclick="changeText('Semoga kamu bahagia selalu 💖')">🙏 Doa</button>
+<button onclick="startGame()">🎮 Game</button>
+
+</div>
+
+<div class="game" id="game">
+<h2>Tangkap Love ❤️</h2>
+<p id="score">Score: 0</p>
+<button onclick="location.reload()">⬅️ Kembali</button>
+</div>
+
+<script>
+
+function startAll(msg){
+  document.getElementById('music').play();
+  changeText(msg);
+  rainHearts();
+}
+
+function changeText(msg){
+  document.getElementById('text').innerText = msg;
+}
+
+function rainHearts(){
+  setInterval(()=>{
+    const h = document.createElement('div');
+    h.classList.add('heartRain');
+    h.innerText='❤️';
+    h.style.left=Math.random()*100+'vw';
+    h.style.animationDuration=(Math.random()*2+2)+'s';
+    document.body.appendChild(h);
+
+    setTimeout(()=>h.remove(),4000);
+  },200);
+}
+
+function startGame(){
+  document.getElementById('main').style.display='none';
+  document.getElementById('game').style.display='block';
+  spawn();
+}
+
+let score=0;
+
+function spawn(){
+  const heart=document.createElement('div');
+  heart.classList.add('heartBox');
+  heart.innerText='❤️';
+
+  heart.style.top=Math.random()*80+10+'vh';
+  heart.style.left=Math.random()*80+10+'vw';
+
+  heart.onclick=function(){
+    score++;
+    document.getElementById('score').innerText='Score: '+score;
+    heart.remove();
+    spawn();
+  }
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{
+    if(heart.parentNode){
+      heart.remove();
+      spawn();
+    }
+  },1200);
+}
+
+</script>
+
+</body>
+</html>
